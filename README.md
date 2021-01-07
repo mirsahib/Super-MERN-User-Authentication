@@ -4,6 +4,28 @@
 
 A repository for Super MERN User Authentication which contain a Nodejs/Express API for user login,registration,JWT token validation and access to restricted area for existing user.The Nodejs/Express API is unit tested with jest and integrated into Github Action.The repository also contain React frontend code.
 
+## Installation
+
+First clone this repository.
+
+```bash
+git clone https://github.com/mirsahib/Super-MERN-User-Authentication.git
+```
+
+Install dependencies. Make sure you already have [`nodejs`](https://nodejs.org/en/) & [`npm`](https://www.npmjs.com/) installed in your system.
+
+```bash
+yarn
+cd client
+yarn
+```
+
+After successfull installation run
+
+```bash
+yarn dev
+```
+
 ## Contribution
 
 If you want to **contribute** and make this project much better for other developer have a look at [Issues](https://github.com/mirsahib/DPDC-Bulk-Bill-Viewer/issues).
