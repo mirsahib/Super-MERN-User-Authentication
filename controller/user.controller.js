@@ -18,15 +18,20 @@ const userLogin = async (req, res) => {
       return res.status(400).json({ msg: "Password doesn't match" });
     }
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
-    res.json({
-      token,
+    //JWT token expires after 2 days
+    const expiryDate = new Date(Number(new Date()) + 172800000);
+    res.cookie("token", token, {
+      expire: expiryDate,
+      httpOnly: true,
+    });
+    return res.json({
       user: {
         id: user._id,
         userName: user.userName,
       },
     });
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    return res.status(401).json({ error: error.message });
   }
 };
 
@@ -66,7 +71,8 @@ const userRegistration = async (req, res) => {
 //check if existing user token is valid
 const isTokenValid = async (req, res) => {
   try {
-    const token = req.header("x-auth-token");
+    //const token = req.header("Authorization");
+    const token = req.cookies.token;
     if (!token) {
       return res.json(false);
     }
@@ -76,7 +82,7 @@ const isTokenValid = async (req, res) => {
     }
     const user = await User.findById(verified.id);
     if (!user) {
-      res.json(false);
+      return res.json(false);
     }
     return res.json(true);
   } catch (error) {
