@@ -3,7 +3,8 @@ const jwt = require("jsonwebtoken");
 //middleware to check if header token is valid
 const auth = (req, res, next) => {
   try {
-    const token = req.header("x-auth-token");
+    //const token = req.header("x-auth-token");
+    const token = req.cookies.token;
     if (!token) {
       res.status(401).json({ msg: "No authorization token" });
     }
