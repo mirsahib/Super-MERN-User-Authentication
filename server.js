@@ -3,6 +3,7 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 
 //declare server port
 const port = process.env.PORT || 5000;
@@ -14,6 +15,7 @@ require("dotenv").config();
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
 
 //bodyparser configuration
 app.use(bodyParser.json());
