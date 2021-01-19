@@ -92,11 +92,21 @@ const isTokenValid = async (req, res) => {
 
 //get existing user id
 const getUserId = async (req, res) => {
-  const user = await User.findById(req.user);
-  res.json({
-    userName: user.userName,
-    id: user._id,
-  });
+  try {
+    const user = await User.findById(req.user);
+    if (!user) {
+      return res.status("400").json({
+        error: "User not found",
+      });
+    }
+    return res.json({
+      id: user._id,
+      userName: user.userName,
+      email: user.email,
+    });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
 };
 
 module.exports = {
